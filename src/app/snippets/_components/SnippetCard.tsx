@@ -3,6 +3,7 @@ import { Snippet } from "@/types";
 import { useUser } from "@clerk/nextjs";
 import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
+import { GenericId } from "convex/values";
 import { useState } from "react";
 
 import { motion } from "framer-motion";
@@ -21,7 +22,7 @@ function SnippetCard({ snippet }: { snippet: Snippet }) {
     setIsDeleting(true);
 
     try {
-      await deleteSnippet({ snippetId: snippet._id });
+      await deleteSnippet({ snippetId: snippet._id as GenericId<"snippets"> });
     } catch (error) {
       console.log("Error deleting snippet:", error);
       toast.error("Error deleting snippet");
@@ -80,7 +81,7 @@ function SnippetCard({ snippet }: { snippet: Snippet }) {
                 className="absolute top-5 right-5 z-10 flex gap-4 items-center"
                 onClick={(e) => e.preventDefault()}
               >
-                <StarButton snippetId={snippet._id} />
+                <StarButton snippetId={snippet._id as GenericId<"snippets">} />
 
                 {user?.id === snippet.userId && (
                   <div className="z-10" onClick={(e) => e.preventDefault()}>

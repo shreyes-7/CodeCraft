@@ -1,5 +1,6 @@
 import { Monaco } from "@monaco-editor/react";
 import { Theme } from "../../../types";
+import * as monaco from "monaco-editor";
 
 type LanguageConfig = Record<
   string,
@@ -349,15 +350,15 @@ export const THEME_DEFINITONS = {
     base: "vs-dark",
     inherit: true,
     rules: [
-      { token: "comment", foreground: "6e7681" },
-      { token: "string", foreground: "a5d6ff" },
-      { token: "keyword", foreground: "ff7b72" },
-      { token: "number", foreground: "79c0ff" },
-      { token: "type", foreground: "ffa657" },
-      { token: "class", foreground: "ffa657" },
-      { token: "function", foreground: "d2a8ff" },
-      { token: "variable", foreground: "ffa657" },
-      { token: "operator", foreground: "ff7b72" },
+      { token: "comment", foreground: "#6e7681" },
+      { token: "string", foreground: "#a5d6ff" },
+      { token: "keyword", foreground: "#ff7b72" },
+      { token: "number", foreground: "#79c0ff" },
+      { token: "type", foreground: "#ffa657" },
+      { token: "class", foreground: "#ffa657" },
+      { token: "function", foreground: "#d2a8ff" },
+      { token: "variable", foreground: "#ffa657" },
+      { token: "operator", foreground: "#ff7b72" },
     ],
     colors: {
       "editor.background": "#0d1117",
@@ -373,15 +374,15 @@ export const THEME_DEFINITONS = {
     base: "vs-dark",
     inherit: true,
     rules: [
-      { token: "comment", foreground: "75715E" },
-      { token: "string", foreground: "E6DB74" },
-      { token: "keyword", foreground: "F92672" },
-      { token: "number", foreground: "AE81FF" },
-      { token: "type", foreground: "66D9EF" },
-      { token: "class", foreground: "A6E22E" },
-      { token: "function", foreground: "A6E22E" },
-      { token: "variable", foreground: "F8F8F2" },
-      { token: "operator", foreground: "F92672" },
+      { token: "comment", foreground: "#75715E" },
+      { token: "string", foreground: "#E6DB74" },
+      { token: "keyword", foreground: "#F92672" },
+      { token: "number", foreground: "#AE81FF" },
+      { token: "type", foreground: "#66D9EF" },
+      { token: "class", foreground: "#A6E22E" },
+      { token: "function", foreground: "#A6E22E" },
+      { token: "variable", foreground: "#F8F8F2" },
+      { token: "operator", foreground: "#F92672" },
     ],
     colors: {
       "editor.background": "#272822",
@@ -397,15 +398,15 @@ export const THEME_DEFINITONS = {
     base: "vs-dark",
     inherit: true,
     rules: [
-      { token: "comment", foreground: "586e75" },
-      { token: "string", foreground: "2aa198" },
-      { token: "keyword", foreground: "859900" },
-      { token: "number", foreground: "d33682" },
-      { token: "type", foreground: "b58900" },
-      { token: "class", foreground: "b58900" },
-      { token: "function", foreground: "268bd2" },
-      { token: "variable", foreground: "b58900" },
-      { token: "operator", foreground: "859900" },
+      { token: "comment", foreground: "#586e75" },
+      { token: "string", foreground: "#2aa198" },
+      { token: "keyword", foreground: "#859900" },
+      { token: "number", foreground: "#d33682" },
+      { token: "type", foreground: "#b58900" },
+      { token: "class", foreground: "#b58900" },
+      { token: "function", foreground: "#268bd2" },
+      { token: "variable", foreground: "#b58900" },
+      { token: "operator", foreground: "#859900" },
     ],
     colors: {
       "editor.background": "#002b36",
@@ -423,12 +424,9 @@ export const THEME_DEFINITONS = {
 export const defineMonacoThemes = (monaco: Monaco) => {
   Object.entries(THEME_DEFINITONS).forEach(([themeName, themeData]) => {
     monaco.editor.defineTheme(themeName, {
-      base: themeData.base,
+      base: themeData.base as monaco.editor.BuiltinTheme,
       inherit: themeData.inherit,
-      rules: themeData.rules.map((rule) => ({
-        ...rule,
-        foreground: rule.foreground,
-      })),
+      rules: themeData.rules,
       colors: themeData.colors,
     });
   });
